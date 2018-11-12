@@ -85,4 +85,5 @@ First, get Rust installed from https://rustup.rs/, then switch to `beta` for thi
 
 ```bash
 rustup override set beta
+cargo build
 ```

@@ -1,5 +1,9 @@
 use failure::Error;
-use std::{fs::File, path::PathBuf};
+use std::{
+    fs::File,
+    io::{stdin, stdout, Write},
+    path::PathBuf,
+};
 use structopt::{clap::AppSettings::ColoredHelp, StructOpt};
 
 /// Read YAML, write JSON
@@ -21,13 +25,15 @@ struct MyArgs {
 
 fn main() -> Result<(), Error> {
     let args = MyArgs::from_args();
+
     let data: serde_yaml::Value = match args.input {
-        Some(input_filename) => serde_yaml::from_reader(File::open(&input_filename)?)?,
-        None => serde_yaml::from_reader(std::io::stdin())?,
+        Some(filename) => serde_yaml::from_reader(File::open(&filename)?)?,
+        None => serde_yaml::from_reader(stdin())?,
     };
-    let mut out: Box<std::io::Write> = match args.output {
-        Some(output_filename) => Box::new(File::create(output_filename)?),
-        None => Box::new(std::io::stdout()),
+
+    let mut out: Box<Write> = match args.output {
+        Some(filename) => Box::new(File::create(filename)?),
+        None => Box::new(stdout()),
     };
 
     if args.compact {
@@ -36,5 +42,6 @@ fn main() -> Result<(), Error> {
         serde_json::to_writer_pretty(out.as_mut(), &data)?;
         out.write(b"\n")?;
     };
+
     Ok(())
 }
