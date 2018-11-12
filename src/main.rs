@@ -6,15 +6,15 @@ use structopt::{clap::AppSettings::ColoredHelp, StructOpt};
 #[derive(Debug, StructOpt)]
 #[structopt(raw(global_settings = "&[ColoredHelp]"))]
 struct MyArgs {
-    /// Compact JSON output
+    /// Use compact formatting for the JSON output.
     #[structopt(long = "compact", short = "c")]
     compact: bool,
 
-    /// Output file name for the JSON
+    /// Output file name for the JSON. Defaults to stdout.
     #[structopt(long = "output", parse(from_os_str), short = "o")]
     output: Option<PathBuf>,
 
-    /// Input YAML file name
+    /// Input YAML file name. Defaults to stdin.
     #[structopt(parse(from_os_str))]
     input: Option<PathBuf>,
 }
