@@ -25,15 +25,16 @@ fn main() -> Result<(), Error> {
         Some(input_filename) => serde_yaml::from_reader(File::open(&input_filename)?)?,
         None => serde_yaml::from_reader(std::io::stdin())?,
     };
-    let out: Box<std::io::Write> = match args.output {
+    let mut out: Box<std::io::Write> = match args.output {
         Some(output_filename) => Box::new(File::create(output_filename)?),
         None => Box::new(std::io::stdout()),
     };
 
     if args.compact {
-        serde_json::to_writer(out, &data)?
+        serde_json::to_writer(out, &data)?;
     } else {
-        serde_json::to_writer_pretty(out, &data)?
+        serde_json::to_writer_pretty(out.as_mut(), &data)?;
+        out.write(b"\n")?;
     };
     Ok(())
 }
