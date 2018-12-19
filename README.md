@@ -39,7 +39,7 @@ ARGS:
 
 ### Releases
 
-Grab binary builds from https://github.ibm.com/ba/yj/releases
+Grab binary builds from https://github.com/bruceadams/yj/releases
 
 ### Example runs
 
@@ -90,10 +90,9 @@ $ echo pi: 3.1415926 | yj -c
 
 ## Build
 
-Build it your self with Rust 2018, which currently requires the `beta` channel.
-First, get Rust installed from https://rustup.rs/, then switch to `beta` for this project.
+Build it your self with Rust 2018, which needs a recent installation of Rust.
+Get Rust installed from https://rustup.rs/.
 
 ```bash
-rustup override set beta
 cargo build
 ```
