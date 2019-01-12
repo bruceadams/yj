@@ -9,7 +9,7 @@ if [[ "$OS_NAME" == "linux" ]]; then
     # Special handling for Linux: build a static binary
     export CC=clang
     export CXX=clang++
-    rustup component add x86_64-unknown-linux-musl
+    rustup target add x86_64-unknown-linux-musl
     cargo build --release --target x86_64-unknown-linux-musl
     mv "target/x86_64-unknown-linux-musl/release/$BINARY" "$BINARY.$OS_NAME"
 else
