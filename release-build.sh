@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euxo pipefail
+
 BINARY=yj
 OS_NAME="$TRAVIS_OS_NAME"
 
