@@ -31,6 +31,7 @@ deploy:
   - provider: cargo
     on:
       repo: bruceadams/yj
+      os: linux
       rust: stable
       tags: true
     token:
