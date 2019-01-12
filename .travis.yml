@@ -1,13 +1,28 @@
 language: rust
+
 os:
   - linux
   - osx
   - windows
+
 rust:
   - stable
   - beta
   - nightly
+
 matrix:
   allow_failures:
     - rust: nightly
   fast_finish: true
+
+before_deploy: "./release-build.sh"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: pfvquNXPMRCy7MLyuSgdBh116L0rzHsmGSrPM76ocTLP4fhEAfK81LEKDDfwuD6tjo3Kay1FUQuqLr4cmLKbfcq9L6bRQnClre86ibkXaLM+x4cYLjFqdfzE0DoqbEus1cwUuDDk2FUpML1nbsV8Dx3NfJb+AfJVv44nn7tD6D9BAg8Fsld9fe6pE6uoPGMNNl+mB5avOQfZx2EdjuGICDaRHj+sfn7ykQy6gg6B3dGD95dYIfWqLftnlw3tL8hj3QFu8damDWuT4RD43d7M3hOKh9y8JLkzhaz/vGjGr0R2IMDhPlV4LE4BHxatxhWlYwhCgGWmSOAB68lI1Pj7wadH7lspo17p2aIR0grHxdN/NZiM//pWQuYHbPiaMJKi8NDorrE/EC2DdoxKpiPoUk8p2mPYmgt+OGYtZh096IchPM2Oa3qEGO0ZC9ffTfHUogzrvYlZuH+CTe17QWNTjZ7zp+H26kInt9tga67DhrOO0NQGU0ph1/ljLKnWIS8kY2vBJgluM/mI0APB7bKgaAxBwg5bPXZn+ohaUMwh/hus2boyAnJ4htx7L9CxPIeXfWDmKns1NDtpC7IPBuzsX8YF/vAIrYwG0CkHrDhUrug9ChWBuDg/OjzXZ0+Gwobyx9/Ri5sQZWCoTCBN5puu25Du14NiazB6ssxBNUHakag=
+  file_glob: true
+  skip_cleanup: true
+  file: yj.*
+  on:
+    repo: bruceadams/yj
