@@ -19,7 +19,7 @@ struct MyArgs {
     yaml: bool,
 
     /// Parse the input as JSON.
-    /// For more use cases, this option makes no difference.
+    /// For most use cases, this option makes no difference.
     /// Valid JSON is valid YAML, so JSON input will (should?) parse
     /// correctly even when being handled with the YAML parser.
     /// Use this option when you want failure (instead of weird results)
