@@ -31,7 +31,7 @@ deploy:
   - provider: cargo
     on:
       repo: bruceadams/yj
-      os: linux
+      condition: "$TRAVIS_OS_NAME" == "linux"
       rust: stable
       tags: true
     token:
