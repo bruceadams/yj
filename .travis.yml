@@ -23,7 +23,7 @@ deploy:
       secure: "ILTVHAI3bCq+95KRVTMmkTPmmQk19E9oFiah1tkisvdmr64bz+jfX3C9quqVsnDFASF7q5A4YgSfvpJGD0XqhZbwl3E88atHP2pqnoMG4/xKKTFD2p9n8+wqbBrCP1xaAUnDncp3eci/xLJ886hTf0vuMtLTYsM45Bero+W/aku3GRQZ+dgFW88XlZAqOyk0IGelt4LUmMOCVdWkNzqPUmY0No2rOsttAHHsbWdhVqFQhL3b6Tb69ouwKH3MSrWokidoMSIDgbRZbVYBW6gE/Pm5IFRM5rH39UunsNp5nyJRIaeto74vy23i57llr+aus6hdal1mKSa8ezVlDYOMer3Ersi6kx3ywz+5v5QMLe61/mVyVvPC3WHBPjqvzT25MA0yDrytU0Mfj/pE6Dx292KkwMXGHRsCc8UsRP6CgXZAxfZqoQXOJYf/AWWdvFSI3zc8ZO6/+rW9IiQ6zKipG+7ehFs/5uS2P18RkwsBmr6TjAVlkyiDWm628VuLPL/n5drfPjEbyveA8RhMuQKwolQ7t+hTLClNuOn8mey13tUOkoKHsrXiq/bVF8ofqt3unaRBkG9EoI6688SPDytykpPaNKJ51Dg28x4E0z6iVsrASVGAPIIeqlAk4cgbJstJztB3pqe6OG+p7onGvmMyLdMuHvlE0bJn4XKnZ3K032I="
     file_glob: true
     skip_cleanup: true
-    file: yj.*
+    file: target/yj.*
     on:
       repo: bruceadams/yj
       rust: stable

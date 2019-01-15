@@ -1,6 +1,6 @@
 [package]
 name = "yj"
-version = "0.7.4"
+version = "0.7.6"
 authors = ["Bruce Adams <bruce.adams@acm.org>"]
 edition = "2018"
 
