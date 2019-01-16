@@ -1,14 +1,19 @@
 [package]
 name = "yj"
-version = "0.7.7"
+version = "0.7.8"
 authors = ["Bruce Adams <bruce.adams@acm.org>"]
-edition = "2018"
 
+categories = ["command-line-utilities"]
 description = "Command line tool that converts YAML to JSON"
-license = "Apache-2.0"
+edition = "2018"
 homepage = "https://github.com/bruceadams/yj"
+keywords = ["json", "yaml"]
+license = "Apache-2.0"
+readme = "README.md"
 repository = "https://github.com/bruceadams/yj"
 
+[badges]
+travis-ci = { repository = "bruceadams/yj" }
 
 [dependencies]
 failure = "0.1"
