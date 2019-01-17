@@ -1,10 +1,5 @@
-FROM bruceadams/rustup-musl as build
+FROM scratch
 
-COPY --chown=rust:rust . /home/rust
-RUN cargo build --release --target x86_64-unknown-linux-musl
-
-FROM scratch as yj
-
-COPY --from=build /home/rust/target/x86_64-unknown-linux-musl/release/yj /
+ADD https://github.com/bruceadams/yj/releases/download/$SOURCE_BRANCH/yj.linux /yj
 
 ENTRYPOINT [ "/yj" ]
