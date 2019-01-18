@@ -9,7 +9,7 @@ Simple command line tool to convert a YAML input file into a JSON output file.
 
 ```bash
 $ yj --help
-yj 0.7.10
+yj 0.7.11
 Bruce Adams <bruce.adams@acm.org>
 Read YAML, write JSON
 
@@ -39,9 +39,21 @@ ARGS:
     <input>    Input YAML file name. Defaults to stdin.
 ```
 
-### Releases
+### Installing
 
-Grab binary builds from https://github.com/bruceadams/yj/releases
+Local build and install with `cargo`:
+
+```bash
+$ cargo install yj
+```
+
+Prebuilt binaries are available on [Github releases](https://github.com/bruceadams/yj/releases) for 64bit x86 for Windows, Linux and macOS.
+
+Minimal Docker images are available on [Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
+
+```bash
+$ docker pull bruceadams/yj
+```
 
 ### Example runs
 
