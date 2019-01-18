@@ -20,12 +20,18 @@ before_deploy: "./release-build.sh"
 deploy:
   - provider: releases
     api_key:
-      secure: "ILTVHAI3bCq+95KRVTMmkTPmmQk19E9oFiah1tkisvdmr64bz+jfX3C9quqVsnDFASF7q5A4YgSfvpJGD0XqhZbwl3E88atHP2pqnoMG4/xKKTFD2p9n8+wqbBrCP1xaAUnDncp3eci/xLJ886hTf0vuMtLTYsM45Bero+W/aku3GRQZ+dgFW88XlZAqOyk0IGelt4LUmMOCVdWkNzqPUmY0No2rOsttAHHsbWdhVqFQhL3b6Tb69ouwKH3MSrWokidoMSIDgbRZbVYBW6gE/Pm5IFRM5rH39UunsNp5nyJRIaeto74vy23i57llr+aus6hdal1mKSa8ezVlDYOMer3Ersi6kx3ywz+5v5QMLe61/mVyVvPC3WHBPjqvzT25MA0yDrytU0Mfj/pE6Dx292KkwMXGHRsCc8UsRP6CgXZAxfZqoQXOJYf/AWWdvFSI3zc8ZO6/+rW9IiQ6zKipG+7ehFs/5uS2P18RkwsBmr6TjAVlkyiDWm628VuLPL/n5drfPjEbyveA8RhMuQKwolQ7t+hTLClNuOn8mey13tUOkoKHsrXiq/bVF8ofqt3unaRBkG9EoI6688SPDytykpPaNKJ51Dg28x4E0z6iVsrASVGAPIIeqlAk4cgbJstJztB3pqe6OG+p7onGvmMyLdMuHvlE0bJn4XKnZ3K032I="
+      secure: ILTVHAI3bCq+95KRVTMmkTPmmQk19E9oFiah1tkisvdmr64bz+jfX3C9quqVsnDFASF7q5A4YgSfvpJGD0XqhZbwl3E88atHP2pqnoMG4/xKKTFD2p9n8+wqbBrCP1xaAUnDncp3eci/xLJ886hTf0vuMtLTYsM45Bero+W/aku3GRQZ+dgFW88XlZAqOyk0IGelt4LUmMOCVdWkNzqPUmY0No2rOsttAHHsbWdhVqFQhL3b6Tb69ouwKH3MSrWokidoMSIDgbRZbVYBW6gE/Pm5IFRM5rH39UunsNp5nyJRIaeto74vy23i57llr+aus6hdal1mKSa8ezVlDYOMer3Ersi6kx3ywz+5v5QMLe61/mVyVvPC3WHBPjqvzT25MA0yDrytU0Mfj/pE6Dx292KkwMXGHRsCc8UsRP6CgXZAxfZqoQXOJYf/AWWdvFSI3zc8ZO6/+rW9IiQ6zKipG+7ehFs/5uS2P18RkwsBmr6TjAVlkyiDWm628VuLPL/n5drfPjEbyveA8RhMuQKwolQ7t+hTLClNuOn8mey13tUOkoKHsrXiq/bVF8ofqt3unaRBkG9EoI6688SPDytykpPaNKJ51Dg28x4E0z6iVsrASVGAPIIeqlAk4cgbJstJztB3pqe6OG+p7onGvmMyLdMuHvlE0bJn4XKnZ3K032I=
     file_glob: true
-    skip_cleanup: true
     file: target/yj.*
     on:
       repo: bruceadams/yj
+      rust: stable
+      tags: true
+  - provider: script
+    script: "./docker-push.sh"
+    on:
+      repo: bruceadams/yj
+      condition: $TRAVIS_OS_NAME == linux
       rust: stable
       tags: true
   - provider: cargo
@@ -36,5 +42,3 @@ deploy:
       tags: true
     token:
       secure: ZaH5jNIjlUYhfH7HWcx5fdLVFtHK753Nj46AVSwObvwbr6ZEuuh4xtDMxSjuMYOkfJbbvdnU1K0CMDYpVKbg4DizYnUTz2WlS7uOAF6tiZW2ICc/98shLzJr/HUDciOAdLSK1q2vRMd1JrO6XLSnQBFf8NcdEUoI/jQSqAhb2P5uM786TxhQegLpEcoSjyRtG38oBqf7nejFYOTS1AWWgu9KoXI9/ObK1twAF3kdYl5TSFKJFee2EbLNNSr4nb/Y0XKZrJ44A5sdcNQHEpu+6V8eXXBVs3nBedPVCoeeJ5I04AIVhcBsFWb56xBaMlsNp05t+PlrDUlHB7EDNl17QaEXhAiqAOGBxP8qc5r8VZ8EGM3CieGN++aOsiTeI96GP2C2M+s6c92HHKYGgYMCUm+UZ032F2j69XpVSQgCqgS82+KGTTkypagYEA8J/n2ekNCks/IC2pifQHcdShRKwZZbAVvn9Xnquq2OGjCb6fJWlekxYVqZdDeCPuc60rNy5klHN1rvNWIG50iXLItOiC1H/LUrFBoozh9yDEVxgnYhPQBO6vNifTgenaGcEDQVVn1R0v96bzOKnq6Yc4Z0MbS9nC/EhAyj89D3F9qIuQH24W2jTOH2E3VlxyFTkLakbsvB1DZE+Zp4stP+zEPR6egZBPJYGQ1tuUP0K+qtN4U=
-
-after_deploy: "[[ $TRAVIS_OS_NAME == linux ]] && curl -XPOST https://cloud.docker.com/api/build/v1/source/26692f1a-27ec-44da-aac9-decbba84d02d/trigf050b7b2-9034-4f30-8e67-3929706f8ce7/call/"

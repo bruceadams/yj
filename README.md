@@ -9,7 +9,7 @@ Simple command line tool to convert a YAML input file into a JSON output file.
 
 ```bash
 $ yj --help
-yj 0.7.11
+yj 0.7.12
 Bruce Adams <bruce.adams@acm.org>
 Read YAML, write JSON
 
