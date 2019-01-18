@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+DOCKER_USERNAME=bruceadams
 echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
 set -x
