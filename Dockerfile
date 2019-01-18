@@ -1,5 +1,5 @@
 FROM scratch
 
-COPY target/yj.linux /yj
+COPY target/x86_64-unknown-linux-musl/release/yj /
 
 ENTRYPOINT [ "/yj" ]
