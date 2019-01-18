@@ -1,6 +1,6 @@
 [package]
 name = "yj"
-version = "0.7.17"
+version = "1.0.1"
 authors = ["Bruce Adams <bruce.adams@acm.org>"]
 
 categories = ["command-line-utilities"]
