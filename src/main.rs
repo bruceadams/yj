@@ -8,7 +8,7 @@ use structopt::{clap::AppSettings::ColoredHelp, StructOpt};
 
 /// Read YAML, write JSON
 #[derive(Debug, StructOpt)]
-#[structopt(raw(global_settings = "&[ColoredHelp]"))]
+#[structopt(global_settings(&[ColoredHelp]))]
 struct MyArgs {
     /// Use compact formatting for the JSON output.
     #[structopt(long = "compact", short = "c")]
@@ -36,7 +36,7 @@ struct MyArgs {
     input: Option<PathBuf>,
 }
 
-fn from_json(input: Box<Read>, mut output: Box<Write>, args: &MyArgs) -> Result<(), Error> {
+fn from_json(input: Box<dyn Read>, mut output: Box<dyn Write>, args: &MyArgs) -> Result<(), Error> {
     let data: serde_json::Value =
         serde_json::from_reader(input).context("Failed to parse input JSON file")?;
 
@@ -56,7 +56,7 @@ fn from_json(input: Box<Read>, mut output: Box<Write>, args: &MyArgs) -> Result<
     Ok(())
 }
 
-fn from_yaml(input: Box<Read>, mut output: Box<Write>, args: &MyArgs) -> Result<(), Error> {
+fn from_yaml(input: Box<dyn Read>, mut output: Box<dyn Write>, args: &MyArgs) -> Result<(), Error> {
     let data: serde_yaml::Value =
         serde_yaml::from_reader(input).context("Failed to parse input YAML file")?;
 
@@ -79,14 +79,14 @@ fn from_yaml(input: Box<Read>, mut output: Box<Write>, args: &MyArgs) -> Result<
 fn main() -> Result<(), Error> {
     let args = MyArgs::from_args();
 
-    let input: Box<Read> = match &args.input {
+    let input: Box<dyn Read> = match &args.input {
         Some(filename) => Box::new(
             File::open(&filename).context(format!("Failed to open input file {:?}", filename))?,
         ),
         None => Box::new(stdin()),
     };
 
-    let output: Box<Write> = match &args.output {
+    let output: Box<dyn Write> = match &args.output {
         Some(filename) => Box::new(
             File::create(&filename)
                 .context(format!("Failed to create output file {:?}", filename))?,

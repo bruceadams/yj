@@ -1,6 +1,6 @@
 [package]
 name = "yj"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Bruce Adams <bruce.adams@acm.org>"]
 
 categories = ["command-line-utilities"]
@@ -16,10 +16,10 @@ repository = "https://github.com/bruceadams/yj"
 travis-ci = { repository = "bruceadams/yj" }
 
 [dependencies]
-failure = "0.1"
-serde_json = "1.0"
-serde_yaml = "0.8"
+failure = "0.1.5"
+serde_json = "1.0.40"
+serde_yaml = "0.8.9"
 
 [dependencies.structopt]
 features = ["wrap_help"]
-version = "0.2"
+version = "0.3.0"
