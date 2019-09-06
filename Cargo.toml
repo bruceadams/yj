@@ -22,4 +22,4 @@ serde_yaml = "0.8.9"
 
 [dependencies.structopt]
 features = ["wrap_help"]
-version = "0.3.0"
+version = "0.3.1"
