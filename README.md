@@ -9,7 +9,7 @@ Simple command line tool to convert a YAML input file into a JSON output file.
 
 ```bash
 $ yj --help
-yj 1.1.0
+yj 1.1.1
 Bruce Adams <bruce.adams@acm.org>
 Read YAML, write JSON
 
@@ -48,6 +48,13 @@ $ cargo install yj
 ```
 
 Prebuilt binaries are available on [Github releases](https://github.com/bruceadams/yj/releases) for 64bit x86 for Windows, Linux and macOS.
+
+On macOS, the prebuilt binary can be installed using [Homebrew](https://brew.sh).
+
+```bash
+$ brew tap bruceadams/utilities
+$ brew install yj
+```
 
 Minimal Docker images are available on [Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
 
