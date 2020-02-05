@@ -3,12 +3,12 @@ name: Rust
 on: [push]
 
 jobs:
-  runs-on: ${{ matrix.os }}
-  strategy:
-    matrix:
-      os: [macos-latest, ubuntu-latest, windows-latest]
-
   build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v1
       - name: Build
