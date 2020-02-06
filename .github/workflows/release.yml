@@ -1,29 +1,89 @@
 name: Release
 
 on:
-  release:
-    types: [created]
+  push:
+    tags: '*'
+
+env:
+  GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
+  job:
+    name: macos
+      build:
+        runs-on: macos-latest
 
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v1
+          - name: Build
+            run: cargo build --release --verbose
+          - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1.0.0
+            with:
+              tag_name: ${{ github.ref }}
+              release_name: Release ${{ github.ref }}
+              draft: false
+              prerelease: false
+          - name: Upload Release Asset
+            uses: actions/upload-release-asset@v1.0.1
+            with:
+              upload_url: ${{ steps.create_release.outputs.upload_url }}
+              asset_path: ./target/release/yj
+              asset_name: yj.macos
+              asset_content_type: application/octet-stream
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Build
-        run: cargo build --release --verbose
-      - name: Publish
-        run: |
-          echo github.repository ${{ github.repository }}
-          echo github.ref ${{ github.ref }}
-          echo matrix.os ${{ matrix.os }}
-          curl \
-          --data-binary @./target/release/yj \
-          --header 'Authorization: Bearer ${{ github.token }}' \
-          --header 'Content-Type: application/octet-stream' \
-          --url https://uploads.github.com/repos/${{ github.repository }}/releases/${{ github.ref }}/assets?name=yj.${{ matrix.os }}
+  job:
+    name: linux
+      build:
+        runs-on: linux-latest
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v1
+          - name: Build
+            run: |
+              rustup target add x86_64-unknown-linux-musl
+              cargo build --release --target x86_64-unknown-linux-musl --verbose
+          - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1.0.0
+            with:
+              tag_name: ${{ github.ref }}
+              release_name: Release ${{ github.ref }}
+              draft: false
+              prerelease: false
+          - name: Upload Release Asset
+            uses: actions/upload-release-asset@v1.0.1
+            with:
+              upload_url: ${{ steps.create_release.outputs.upload_url }}
+              asset_path: ./target/release/yj
+              asset_name: yj.linux
+              asset_content_type: application/octet-stream
+
+  job:
+    name: windows
+      build:
+        runs-on: windows-latest
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v1
+          - name: Build
+            run: cargo build --release --verbose
+          - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1.0.0
+            with:
+              tag_name: ${{ github.ref }}
+              release_name: Release ${{ github.ref }}
+              draft: false
+              prerelease: false
+          - name: Upload Release Asset
+            uses: actions/upload-release-asset@v1.0.1
+            with:
+              upload_url: ${{ steps.create_release.outputs.upload_url }}
+              asset_path: ./target/release/yj.exe
+              asset_name: yj.exe
+              asset_content_type: application/octet-stream
