@@ -17,14 +17,13 @@ jobs:
         uses: actions/checkout@v1
       - name: Build
         run: cargo build --release --verbose
-      - name: Clippy
-        run: cargo clippy --verbose
-      - name: Test
-        run: cargo test --verbose
       - name: Publish
         run: |
+          echo github.repository ${{ github.repository }}
+          echo github.ref ${{ github.ref }}
+          echo matrix.os ${{ matrix.os }}
           curl \
           --data-binary @./target/release/yj \
-          --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'Authorization: Bearer ${{ github.token }}' \
           --header 'Content-Type: application/octet-stream' \
-          --url https://uploads.github.com/repos/${{ github.repository }}/releases/1.1.1/assets?name=yj.${{ jobs.build.strategy.matrix.os }}
+          --url https://uploads.github.com/repos/${{ github.repository }}/releases/${{ github.ref }}/assets?name=yj.${{ matrix.os }}
