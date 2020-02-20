@@ -9,7 +9,6 @@ env:
 
 jobs:
   macos:
-    needs: release
     runs-on: macos-latest
 
     steps:
@@ -29,7 +28,6 @@ jobs:
           asset_content_type: application/octet-stream
 
   linux:
-    needs: release
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +49,6 @@ jobs:
           asset_content_type: application/octet-stream
 
   windows:
-    needs: release
     runs-on: windows-latest
 
     steps:
