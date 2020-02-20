@@ -1,25 +1,13 @@
-name: Release
+name: Release Binaries
 
 on:
-  push:
-    tags: "*"
+  release:
+    types: [created]
 
 env:
   GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
   macos:
     needs: release
     runs-on: macos-latest
@@ -27,12 +15,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Get Release
+        id: get_release
+        uses: bruceadams/get-release@v1
       - name: Build
         run: cargo build --release --verbose
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1.0.1
         with:
-          upload_url: ${{ release.steps.create_release.outputs.upload_url }}
+          upload_url: ${{ get_release.outputs.upload_url }}
           asset_path: ./target/release/yj
           asset_name: yj.macos
           asset_content_type: application/octet-stream
@@ -44,6 +35,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Get Release
+        id: get_release
+        uses: bruceadams/get-release@v1
       - name: Build
         run: |
           rustup target add x86_64-unknown-linux-musl
@@ -51,7 +45,7 @@ jobs:
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1.0.1
         with:
-          upload_url: ${{ release.steps.create_release.outputs.upload_url }}
+          upload_url: ${{ get_release.outputs.upload_url }}
           asset_path: ./target/release/yj
           asset_name: yj.linux
           asset_content_type: application/octet-stream
@@ -63,12 +57,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Get Release
+        id: get_release
+        uses: bruceadams/get-release@v1
       - name: Build
         run: cargo build --release --verbose
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1.0.1
         with:
-          upload_url: ${{ release.steps.create_release.outputs.upload_url }}
+          upload_url: ${{ get_release.outputs.upload_url }}
           asset_path: ./target/release/yj.exe
           asset_name: yj.exe
           asset_content_type: application/octet-stream
