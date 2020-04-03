@@ -37,9 +37,7 @@ jobs:
         id: get_release
         uses: bruceadams/get-release@v1.1.0
       - name: Build
-        run: |
-          rustup target add x86_64-unknown-linux-musl
-          cargo build --release --target x86_64-unknown-linux-musl --verbose
+        run: cargo build --release --verbose
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1.0.1
         with:
