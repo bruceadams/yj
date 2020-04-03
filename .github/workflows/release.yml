@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-release-asset@v1.0.1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./target/release/yj
+          asset_path: ./target/x86_64-unknown-linux-musl/release/yj
           asset_name: yj.linux
           asset_content_type: application/octet-stream
 
