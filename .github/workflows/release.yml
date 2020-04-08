@@ -8,8 +8,22 @@ env:
   GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
-  macos:
-    runs-on: macos-latest
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        include:
+          - os: macos-latest
+            path: ./target/release/yj
+            name: yj.macos
+          - os: ubuntu-latest
+            path: ./target/x86_64-unknown-linux-musl/release/yj
+            name: yj.linux
+          - os: windows-latest
+            path: ./target/release/yj.exe
+            name: yj.exe
 
     steps:
       - name: Checkout
@@ -17,53 +31,19 @@ jobs:
       - name: Get Release
         id: get_release
         uses: bruceadams/get-release@v1.2.0
-      - name: Build
-        run: cargo build --release --verbose
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1.0.1
-        with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./target/release/yj
-          asset_name: yj.macos
-          asset_content_type: application/octet-stream
-
-  linux:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Get Release
-        id: get_release
-        uses: bruceadams/get-release@v1.2.0
-      - name: Build
+      - name: Update
+        run: rustup update
+      - name: MUSL
+        if: context.os == 'Linux'
         run: |
           sudo apt-get install musl-tools
           rustup target add x86_64-unknown-linux-musl
-          cargo build --release --target x86_64-unknown-linux-musl --verbose
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1.0.1
-        with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./target/x86_64-unknown-linux-musl/release/yj
-          asset_name: yj.linux
-          asset_content_type: application/octet-stream
-
-  windows:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Get Release
-        id: get_release
-        uses: bruceadams/get-release@v1.2.0
       - name: Build
         run: cargo build --release --verbose
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1.0.1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./target/release/yj.exe
-          asset_name: yj.exe
+          asset_path: ${{ matrix.path }}
+          asset_name: yj.${{ matrix.name }}
           asset_content_type: application/octet-stream
