@@ -33,13 +33,15 @@ jobs:
         uses: bruceadams/get-release@v1.2.0
       - name: Update
         run: rustup update
-      - name: MUSL
+      - name: Build
+        if: runner.os != 'Linux'
+        run: cargo build --release --verbose
+      - name: MUSL build
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install musl-tools
           rustup target add x86_64-unknown-linux-musl
-      - name: Build
-        run: cargo build --release --verbose
+          cargo build --release --target x86_64-unknown-linux-musl --verbose
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1.0.1
         with:
