@@ -14,7 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Update
-        run: rustup update
+        run: |
+          rustup update
+          rustup component add clippy
       - name: Build
         run: cargo build --verbose
       - name: Clippy
