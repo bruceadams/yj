@@ -23,4 +23,4 @@ snafu = "0.6.8"
 
 [dependencies.structopt]
 features = ["wrap_help"]
-version = "0.3.15"
+version = "0.3.17"
