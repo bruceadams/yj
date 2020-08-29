@@ -1,3 +1,4 @@
+use clap::{AppSettings::ColoredHelp, Clap};
 use exitfailure::ExitFailure;
 use snafu::{ResultExt, Snafu};
 use std::{
@@ -5,7 +6,6 @@ use std::{
     io::{stdin, stdout, Read, Write},
     path::PathBuf,
 };
-use structopt::{clap::AppSettings::ColoredHelp, StructOpt};
 
 struct Input {
     handle: Box<dyn Read>,
@@ -52,15 +52,15 @@ enum Error {
 }
 
 /// Read YAML, write JSON
-#[derive(Debug, StructOpt)]
-#[structopt(global_settings(&[ColoredHelp]))]
+#[derive(Clap, Clone, Debug)]
+#[clap(global_setting = ColoredHelp)]
 struct MyArgs {
     /// Use compact formatting for the JSON output.
-    #[structopt(long = "compact", short = "c")]
+    #[clap(long = "compact", short = 'c')]
     compact: bool,
 
     /// Format the output as YAML instead of JSON.
-    #[structopt(long = "yaml", short = "y")]
+    #[clap(long = "yaml", short = 'y')]
     yaml: bool,
 
     /// Parse the input as JSON.
@@ -69,15 +69,15 @@ struct MyArgs {
     /// correctly even when being handled with the YAML parser.
     /// Use this option when you want failure (instead of weird results)
     /// when the input is invalid JSON.
-    #[structopt(long = "json", short = "j")]
+    #[clap(long = "json", short = 'j')]
     json: bool,
 
     /// Output file name for the JSON. Defaults to stdout.
-    #[structopt(long = "output", parse(from_os_str), short = "o")]
+    #[clap(long = "output", parse(from_os_str), short = 'o')]
     output: Option<PathBuf>,
 
     /// Input YAML file name. Defaults to stdin.
-    #[structopt(parse(from_os_str))]
+    #[clap(parse(from_os_str))]
     input: Option<PathBuf>,
 }
 
@@ -132,7 +132,7 @@ fn dispatch(input: Input, output: Output, args: &MyArgs) -> Result<(), Error> {
 }
 
 fn main() -> Result<(), ExitFailure> {
-    let args = MyArgs::from_args();
+    let args = MyArgs::parse();
 
     let input: Input = match &args.input {
         Some(filename) => Input {
