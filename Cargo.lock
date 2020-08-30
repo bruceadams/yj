@@ -251,7 +251,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "serde_json"
-version = "1.0.56"
+version = "1.0.57"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "itoa 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -407,7 +407,7 @@ version = "1.1.25"
 dependencies = [
  "clap 3.0.0-beta.1 (git+https://github.com/clap-rs/clap)",
  "exitfailure 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde_json 1.0.56 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_json 1.0.57 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_yaml 0.8.13 (registry+https://github.com/rust-lang/crates.io-index)",
  "snafu 0.6.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -446,7 +446,7 @@ dependencies = [
 "checksum rustc-demangle 0.1.16 (registry+https://github.com/rust-lang/crates.io-index)" = "4c691c0e608126e00913e33f0ccf3727d5fc84573623b8d65b2df340b5201783"
 "checksum ryu 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)" = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 "checksum serde 1.0.114 (registry+https://github.com/rust-lang/crates.io-index)" = "5317f7588f0a5078ee60ef675ef96735a1442132dc645eb1d12c018620ed8cd3"
-"checksum serde_json 1.0.56 (registry+https://github.com/rust-lang/crates.io-index)" = "3433e879a558dde8b5e8feb2a04899cf34fdde1fafb894687e52105fc1162ac3"
+"checksum serde_json 1.0.57 (registry+https://github.com/rust-lang/crates.io-index)" = "164eacbdb13512ec2745fb09d51fd5b22b0d65ed294a1dcf7285a360c80a675c"
 "checksum serde_yaml 0.8.13 (registry+https://github.com/rust-lang/crates.io-index)" = "ae3e2dd40a7cdc18ca80db804b7f461a39bb721160a85c9a1fa30134bf3c02a5"
 "checksum snafu 0.6.8 (registry+https://github.com/rust-lang/crates.io-index)" = "c7f5aed652511f5c9123cf2afbe9c244c29db6effa2abb05c866e965c82405ce"
 "checksum snafu-derive 0.6.8 (registry+https://github.com/rust-lang/crates.io-index)" = "ebf8f7d5720104a9df0f7076a8682024e958bba0fe9848767bb44f251f3648e9"
