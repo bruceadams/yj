@@ -17,7 +17,7 @@ travis-ci = { repository = "bruceadams/yj" }
 
 [dependencies]
 exitfailure = "0.5.1"
-serde_json = "1.0.57"
+serde_json = "1.0.59"
 serde_yaml = "0.8.13"
 snafu = "0.6.9"
 
