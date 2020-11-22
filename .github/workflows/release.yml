@@ -47,7 +47,7 @@ jobs:
       - name: macOS Build
         if: runner.os == 'macOS'
         run: |
-          rustup target install beta
+          rustup toolchain install beta
           rustup target add --toolchain beta aarch64-apple-darwin
           cargo build --release --verbose
           SDKROOT=$(xcrun -sdk macosx11.0 --show-sdk-path) MACOSX_DEPLOYMENT_TARGET=$(xcrun -sdk macosx11.0 --show-sdk-platform-version) cargo +beta build --release --target aarch64-apple-darwin --verbose
