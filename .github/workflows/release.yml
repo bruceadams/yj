@@ -16,14 +16,17 @@ jobs:
         os: [macos-latest, ubuntu-latest, windows-latest]
         include:
           - os: macos-latest
-            path: ./target/release/yj
-            name: yj.macos
+            x86_64: ./target/release/yj
+            aarch64: ./target/aarch64-apple-darwin/release/yj
+            name: macos
           - os: ubuntu-latest
-            path: ./target/x86_64-unknown-linux-musl/release/yj
-            name: yj.linux
+            x86_64: ./target/x86_64-unknown-linux-musl/release/yj
+            aarch64: ./target/aarch64-unknown-linux-musl/release/yj
+            name: linux
           - os: windows-latest
-            path: ./target/release/yj.exe
-            name: yj.exe
+            x86_64: ./target/release/yj.exe
+            aarch64: ./target/aarch64-pc-windows-msvc/release/yj.exe
+            name: exe
 
     steps:
       - name: Checkout
@@ -33,19 +36,38 @@ jobs:
         uses: bruceadams/get-release@v1.2.0
       - name: Update
         run: rustup update
-      - name: Build
-        if: runner.os != 'Linux'
-        run: cargo build --release --verbose
-      - name: MUSL build
+      - name: Linux build
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install musl-tools
           rustup target add x86_64-unknown-linux-musl
+          rustup target add aarch64-unknown-linux-musl
           cargo build --release --target x86_64-unknown-linux-musl --verbose
-      - name: Upload Release Asset
+          cargo build --release --target aarch64-unknown-linux-musl --verbose
+      - name: macOS Build
+        if: runner.os == 'macOS'
+        run: |
+          rustup target add aarch64-apple-darwin
+          cargo build --release --verbose
+          cargo build --release --target aarch64-apple-darwin --verbose
+      - name: Windows build
+        if: runner.os == 'Windows'
+        run: |
+          sudo apt-get install musl-tools
+          rustup target add aarch64-pc-windows-msvc
+          cargo build --release --verbose
+          cargo build --release --target aarch64-pc-windows-msvc --verbose
+      - name: Upload x86_64 Binary
         uses: actions/upload-release-asset@v1.0.1
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ${{ matrix.path }}
-          asset_name: yj.${{ matrix.name }}
+          asset_path: ${{ matrix.x86_64 }}
+          asset_name: yj.x86_64.${{ matrix.name }}
+          asset_content_type: application/octet-stream
+      - name: Upload aarch64 Binary
+        uses: actions/upload-release-asset@v1.0.1
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ${{ matrix.aarch64 }}
+          asset_name: yj.aarch64.${{ matrix.name }}
           asset_content_type: application/octet-stream
