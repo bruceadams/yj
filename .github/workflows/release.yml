@@ -54,7 +54,6 @@ jobs:
       - name: Windows build
         if: runner.os == 'Windows'
         run: |
-          sudo apt-get install musl-tools
           rustup target add aarch64-pc-windows-msvc
           cargo build --release --verbose
           cargo build --release --target aarch64-pc-windows-msvc --verbose
