@@ -21,7 +21,7 @@ jobs:
             name: macos
           - os: ubuntu-latest
             x86_64: ./target/x86_64-unknown-linux-musl/release/yj
-            aarch64: ./target/aarch64-unknown-linux-musl/release/yj
+            aarch64: ./target/aarch64-unknown-linux-gnu/release/yj
             name: linux
           - os: windows-latest
             x86_64: ./target/release/yj.exe
@@ -41,9 +41,9 @@ jobs:
         run: |
           sudo apt-get install musl-tools
           rustup target add x86_64-unknown-linux-musl
-          rustup target add aarch64-unknown-linux-musl
+          rustup target add aarch64-unknown-linux-gnu
           cargo build --release --target x86_64-unknown-linux-musl --verbose
-          cargo build --release --target aarch64-unknown-linux-musl --verbose
+          cargo build --release --target aarch64-unknown-linux-gnu --verbose
       - name: macOS Build
         if: runner.os == 'macOS'
         run: |
