@@ -1,0 +1,21 @@
+name: Experimental Binaries
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: Rustup
+        run: |
+          rustup update
+          rustup target add aarch64-unknown-linux-gnu
+      - name: Linux/libc Build
+        run: cargo build --release --target aarch64-unknown-linux-gnu --verbose
+      - name: wazzit
+        run: |
+          file ./target/aarch64-unknown-linux-gnu/release/yj
+          ls -l ./target/aarch64-unknown-linux-gnu/release/yj
