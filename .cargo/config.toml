@@ -1,0 +1,2 @@
+[registries]
+cratespaces = { index = "https://github.com/integer32llc/crates.io-namespace-fork-index.git" }
