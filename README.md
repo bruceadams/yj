@@ -9,34 +9,30 @@ Simple command line tool to convert a YAML input file into a JSON output file.
 
 ```bash
 $ yj --help
-yj 1.1.25
+yj 1.1.33
 Bruce Adams <bruce.adams@acm.org>
 Read YAML, write JSON
 
 USAGE:
-    yj.exe [FLAGS] [OPTIONS] [input]
-
-FLAGS:
-    -c, --compact    Use compact formatting for the JSON output.
-    -h, --help       Prints help information
-    -j, --json       Parse the input as JSON. For most use
-                     cases, this option makes no difference.
-                     Valid JSON is valid YAML, so JSON input
-                     will (should?) parse correctly even when
-                     being handled with the YAML parser. Use
-                     this option when you want failure (instead
-                     of weird results) when the input is invalid
-                     JSON.
-    -V, --version    Prints version information
-    -y, --yaml       Format the output as YAML instead of JSON.
-
-OPTIONS:
-    -o, --output <output>
-            Output file name for the JSON. Defaults to stdout.
-
+    yj [FLAGS] [OPTIONS] [input]
 
 ARGS:
-    <input>    Input YAML file name. Defaults to stdin.
+    <input>    Input YAML file name. Defaults to stdin
+
+FLAGS:
+    -c, --compact    Use compact formatting for the JSON output
+    -h, --help       Prints help information
+    -j, --json       Parse the input as JSON. For most use cases, this option
+                     makes no difference. Valid JSON is valid YAML, so JSON
+                     input will (should?) parse correctly even when being
+                     handled with the YAML parser. Use this option when you
+                     want failure (instead of weird results) when the input is
+                     invalid JSON
+    -V, --version    Prints version information
+    -y, --yaml       Format the output as YAML instead of JSON
+
+OPTIONS:
+    -o, --output <output>    Output file name for the JSON. Defaults to stdout
 ```
 
 ### Installing
