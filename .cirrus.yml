@@ -3,15 +3,15 @@ macos_instance:
 
 task:
   env:
-    CARGO_HOME: $HOME/.cargo
+    RUST_HOME: $HOME/rust
+    CARGO_HOME: $RUST_HOME/.cargo
+    RUSTUP_HOME: $RUST_HOME/.rustup
     PATH: $CARGO_HOME/bin:${PATH}
   registry_cache:
-    folder: $CARGO_HOME
-    populate_script:
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
+    folder: $RUST_HOME
+    populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | HOME=$RUST_HOME sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
   target_cache:
     folder: target
-    fingerprint_script:
-      - cat Cargo.lock
+    fingerprint_script: cat Cargo.lock
   build_script: cargo build --release --target aarch64-apple-darwin --verbose
   before_cache_script: rm -rf $CARGO_HOME/registry/index
