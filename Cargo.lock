@@ -454,7 +454,7 @@ dependencies = [
 
 [[package]]
 name = "yj"
-version = "1.1.34"
+version = "1.1.35"
 dependencies = [
  "clap",
  "exitfailure",
