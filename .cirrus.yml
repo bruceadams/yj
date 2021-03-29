@@ -13,5 +13,15 @@ task:
   target_cache:
     folder: target
     fingerprint_script: cat Cargo.lock
-  build_script: cargo build --release --target aarch64-apple-darwin --verbose
+  build_script:
+    - ls
+    - env
+    - pwd
+    - echo $PWD
+    - ls $HOME
+    - ls $RUST_HOME
+    - ls $CARGO_HOME
+    - ls $CARGO_HOME/bin
+    - echo $PATH
+    - cargo build --release --target aarch64-apple-darwin --verbose
   before_cache_script: rm -rf $CARGO_HOME/registry/index
