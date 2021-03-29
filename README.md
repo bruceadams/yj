@@ -43,7 +43,9 @@ Local build and install with `cargo`:
 $ cargo install yj
 ```
 
-Prebuilt binaries are available on [Github releases](https://github.com/bruceadams/yj/releases) for 64bit x86 for Windows, Linux and macOS.
+Prebuilt binaries are available on
+[Github releases](https://github.com/bruceadams/yj/releases)
+for 64bit x86 for Windows, Linux and macOS.
 
 On macOS, the prebuilt binary can be installed using [Homebrew](https://brew.sh).
 
@@ -52,7 +54,8 @@ $ brew tap bruceadams/utilities
 $ brew install yj
 ```
 
-Minimal Docker images are available on [Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
+Minimal Docker images are available on
+[Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
 
 ```bash
 $ docker pull bruceadams/yj
