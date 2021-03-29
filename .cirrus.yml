@@ -9,6 +9,7 @@ task:
     PATH: $CARGO_HOME/bin:${PATH}
   registry_cache:
     folder: $RUST_HOME
+    fingerprint_script: date +%B
     populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
   target_cache:
     folder: target
