@@ -7,15 +7,11 @@ task:
     PATH: $CARGO_HOME/bin:${PATH}
   registry_cache:
     folder: $CARGO_HOME
-    fingerprint_script:
-      - rustc --version || echo unknown
-      - cat Cargo.lock
     populate_script:
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
   target_cache:
     folder: target
     fingerprint_script:
-      - rustc --version || echo unknown
       - cat Cargo.lock
   build_script: cargo build --release --target aarch64-apple-darwin --verbose
   before_cache_script: rm -rf $CARGO_HOME/registry/index
