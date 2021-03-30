@@ -10,7 +10,7 @@ macos_universal_task:
   rust_cache:
     folder: $RUST_HOME
     reupload_on_changes: true
-    fingerprint_script: rustc --version || echo bootstrap
+    fingerprint_script: date +%Y
     populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
   update_script: rustup --verbose update
   target_cache:
