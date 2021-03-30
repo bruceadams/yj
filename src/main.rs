@@ -161,7 +161,7 @@ fn main() -> Result<(), ExitFailure> {
     Ok(())
 }
 
-// Copyright 2018 Bruce Adams
+// Copyright 2018—2021 Bruce Adams
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
