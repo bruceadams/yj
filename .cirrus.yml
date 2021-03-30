@@ -9,9 +9,14 @@ macos_universal_task:
     PATH: $CARGO_HOME/bin:${PATH}
   rust_cache:
     folder: $RUST_HOME
+    reupload_on_changes: true
+    fingerprint_script: cat Cargo.toml
     populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
+  update_script: rustup update
   target_cache:
     folder: target
+    reupload_on_changes: true
+    fingerprint_script: rustc --version
   build_script:
     - cargo build --verbose --release --target aarch64-apple-darwin
     - cargo build --verbose --release --target x86_64-apple-darwin
