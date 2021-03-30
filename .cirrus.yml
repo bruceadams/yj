@@ -1,20 +1,17 @@
 macos_instance:
   image: big-sur-xcode
 
-task:
+macos_universal_task:
   env:
     RUST_HOME: $HOME/rust
-    CARGO_HOME: $RUST_HOME/.cargo
-    RUSTUP_HOME: $RUST_HOME/.rustup
+    CARGO_HOME: $RUST_HOME/cargo
+    RUSTUP_HOME: $RUST_HOME/rustup
     PATH: $CARGO_HOME/bin:${PATH}
-  registry_cache:
+  rust_cache:
     folder: $RUST_HOME
-    reupload_on_changes: true
-    fingerprint_script: cat Cargo.lock
     populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
   target_cache:
     folder: target
-    fingerprint_script: cat Cargo.lock
   build_script:
     - cargo build --verbose --release --target aarch64-apple-darwin
     - cargo build --verbose --release --target x86_64-apple-darwin
