@@ -22,3 +22,4 @@ macos_universal_task:
     - cargo build --verbose --release --target x86_64-apple-darwin
     - lipo -create -output yj target/{aarch64,x86_64}-apple-darwin/release/yj
     - file yj
+  before_cache_script: rm -f target/.rustc_info.json
