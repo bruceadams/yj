@@ -39,9 +39,11 @@ linux_x68_task:
     folder: target
     reupload_on_changes: true
     fingerprint_script: rustc --version
+  setup_script:
+    - rustup target add x86_64-unknown-linux-musl
   build_script:
-    - cargo build --verbose --release
-    - mv target/release/yj yj.linux
+    - cargo build --verbose --release --target x86_64-unknown-linux-musl
+    - mv target/x86_64-unknown-linux-musl/release/yj yj.linux
     - file yj.linux
   binary_artifacts:
     path: yj.linux
