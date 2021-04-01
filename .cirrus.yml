@@ -59,10 +59,10 @@ windows_x86_task:
   windows_container:
     image: cirrusci/windowsservercore:2019
   env:
-    RUST_HOME: $HOMEPATH/$CIRRUS_OS
-    CARGO_HOME: $RUST_HOME/cargo
-    RUSTUP_HOME: $RUST_HOME/rustup
-    PATH: $CARGO_HOME/bin:$PATH
+    RUST_HOME: C:\Users\ContainerAdministrator\rust
+    CARGO_HOME: $RUST_HOME\cargo
+    RUSTUP_HOME: $RUST_HOME\rustup
+    PATH: $CARGO_HOME\bin;$PATH
   rust_cache:
     folder: $RUST_HOME
     reupload_on_changes: true
