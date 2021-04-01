@@ -67,9 +67,11 @@ windows_x86_task:
     folder: $RUST_HOME
     reupload_on_changes: true
     fingerprint_script:
-      - echo %PATH%
+      - echo %CIRRUS_OS%
       - date /t
     populate_script:
+      - curl -fSLo vs_buildtools.exe https://aka.ms/vs/16/release/vs_buildtools.exe
+      - vs_buildtools.exe --quiet --wait --norestart --nocache --installPath C:\BuildTools --add Microsoft.Component.MSBuild --add Microsoft.VisualStudio.Component.Windows10SDK.18362 --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
       - curl -fSLo rustup-init.exe https://win.rustup.rs/x86_64
       - rustup-init.exe -y --verbose
       - del rustup-init.exe
