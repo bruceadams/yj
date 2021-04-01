@@ -59,7 +59,7 @@ windows_x86_task:
   windows_container:
     image: cirrusci/windowsservercore:2019
   env:
-    RUST_HOME: $HOME/$CIRRUS_OS
+    RUST_HOME: $HOMEPATH/$CIRRUS_OS
     CARGO_HOME: $RUST_HOME/cargo
     RUSTUP_HOME: $RUST_HOME/rustup
     PATH: $CARGO_HOME/bin:$PATH
@@ -67,13 +67,15 @@ windows_x86_task:
     folder: $RUST_HOME
     reupload_on_changes: true
     fingerprint_script:
-      - echo retry
+      - echo %PATH%
       - date /t
     populate_script:
       - curl -fSLo rustup-init.exe https://win.rustup.rs/x86_64
       - rustup-init.exe -y --verbose
       - del rustup-init.exe
-  update_script: rustup --verbose update
+  update_script:
+    - echo %CARGO_HOME%
+    - rustup --verbose update
   target_cache:
     folder: target
     reupload_on_changes: true
