@@ -12,7 +12,7 @@ macos_universal_task:
     fingerprint_script:
       - echo $CIRRUS_OS
       - date +%Y
-    populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --target aarch64-apple-darwin --verbose
+    populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --verbose --no-modify-path --target aarch64-apple-darwin
   update_script: rustup --verbose update
   target_cache:
     folder: target
@@ -22,11 +22,13 @@ macos_universal_task:
       - rustc --version
   build_script:
     - cargo build --verbose --release --target aarch64-apple-darwin
+    - mv target/aarch64-apple-darwin/release/yj yj.macos.aarch64
     - cargo build --verbose --release --target x86_64-apple-darwin
-    - lipo -create -output yj.universal.$CIRRUS_OS target/{aarch64,x86_64}-apple-darwin/release/yj
-    - file yj.universal.$CIRRUS_OS
+    - mv target/x86_64-apple-darwin/release/yj yj.macos.x86_64
+    - lipo -create -output yj.macos.universal yj.macos.aarch64 yj.macos.x86_64
+    - file yj.macos.universal
   binary_artifacts:
-    path: yj.universal.$CIRRUS_OS
+    path: yj.macos.*
   before_cache_script: rm -f target/.rustc_info.json
 
 linux_x68_64_task:
@@ -48,11 +50,11 @@ linux_x68_64_task:
     - rustup target add x86_64-unknown-linux-musl
   build_script:
     - cargo build --verbose --release --target x86_64-unknown-linux-musl
-    - mv target/x86_64-unknown-linux-musl/release/yj yj.x86_64.$CIRRUS_OS
-    - file yj.x86_64.$CIRRUS_OS
-    - ldd yj.x86_64.$CIRRUS_OS
+    - mv target/x86_64-unknown-linux-musl/release/yj yj.$CIRRUS_OS.x86_64
+    - file yj.$CIRRUS_OS.x86_64
+    - ldd yj.$CIRRUS_OS.x86_64
   binary_artifacts:
-    path: yj.x86_64.$CIRRUS_OS
+    path: yj.$CIRRUS_OS.*
   before_cache_script: rm -f target/.rustc_info.json
 
 windows_x86_task:
@@ -71,10 +73,11 @@ windows_x86_task:
     reupload_on_changes: true
     fingerprint_script:
       - echo %CIRRUS_OS%
+      - echo plusarm
       - date /t
     populate_script:
       - curl -fSLo rustup-init.exe https://win.rustup.rs/x86_64
-      - rustup-init.exe -y --verbose
+      - rustup-init.exe -y --verbose --target aarch64-pc-windows-msvc
       - del rustup-init.exe
   update_script:
     - rustup --verbose update
@@ -85,9 +88,10 @@ windows_x86_task:
       - echo %CIRRUS_OS%
       - rustc --version
   build_script:
-    - cargo build --verbose --release
-    - dir target\release
-    - move target\release\yj.exe yj.x86_64.%CIRRUS_OS%.exe
+    - cargo build --verbose --release --target aarch64-pc-windows-msvc
+    - move target\release\yj.exe yj.%CIRRUS_OS%.aarch64.exe
+    - cargo build --verbose --release --target x86_64-pc-windows-msvc
+    - move target\release\yj.exe yj.%CIRRUS_OS%.x86_64.exe
   binary_artifacts:
-    path: yj.x86_64.%CIRRUS_OS%.exe
+    path: yj.%CIRRUS_OS%.*
   before_cache_script: del target\.rustc_info.json
