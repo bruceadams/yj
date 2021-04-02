@@ -12,7 +12,9 @@ macos_universal_task:
     fingerprint_script:
       - echo $CIRRUS_OS
       - date +%Y
-    populate_script: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --verbose --no-modify-path --target aarch64-apple-darwin
+    populate_script: >
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs |
+      sh -s -- -y --verbose --no-modify-path --target aarch64-apple-darwin
   update_script: rustup --verbose update
   target_cache:
     folder: target
@@ -67,7 +69,13 @@ windows_x86_task:
     PATH: $CARGO_HOME\bin;$PATH
   vs_cpp_script:
     - curl -fSLo vs_buildtools.exe https://aka.ms/vs/16/release/vs_buildtools.exe
-    - vs_buildtools.exe --quiet --wait --norestart --nocache --installPath C:\BuildTools --add Microsoft.Component.MSBuild --add Microsoft.VisualStudio.Component.Windows10SDK.18362 --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+    - >
+      vs_buildtools.exe --quiet --wait --norestart --nocache
+      --installPath C:\BuildTools
+      --add Microsoft.Component.MSBuild
+      --add Microsoft.VisualStudio.Component.Windows10SDK.18362
+      --add Microsoft.VisualStudio.Component.VC.Tools.ARM64
+      --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
   rust_cache:
     folder: $RUST_HOME
     reupload_on_changes: true
