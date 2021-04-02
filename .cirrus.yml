@@ -97,9 +97,9 @@ windows_x86_task:
       - rustc --version
   build_script:
     - cargo build --verbose --release --target aarch64-pc-windows-msvc
-    - move target\release\yj.exe yj.%CIRRUS_OS%.aarch64.exe
+    - move target\aarch64-pc-windows-msvc\release\yj.exe yj.%CIRRUS_OS%.aarch64.exe
     - cargo build --verbose --release --target x86_64-pc-windows-msvc
-    - move target\release\yj.exe yj.%CIRRUS_OS%.x86_64.exe
+    - move target\x86_64-pc-windows-msvc\release\yj.exe yj.%CIRRUS_OS%.x86_64.exe
   binary_artifacts:
     path: yj.%CIRRUS_OS%.*
   before_cache_script: del target\.rustc_info.json
