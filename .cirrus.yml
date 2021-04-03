@@ -59,47 +59,34 @@ linux_x68_64_task:
     path: yj.$CIRRUS_OS.*
   before_cache_script: rm -f target/.rustc_info.json
 
-windows_x86_task:
-  windows_container:
-    image: cirrusci/windowsservercore:2019
+freebsd_x86_task:
+  freebsd_instance:
+    image_family: freebsd-12-2
   env:
-    RUST_HOME: C:\Users\ContainerAdministrator\rust
-    CARGO_HOME: $RUST_HOME\cargo
-    RUSTUP_HOME: $RUST_HOME\rustup
-    PATH: $CARGO_HOME\bin;$PATH
-  vs_cpp_script:
-    - curl -fSLo vs_buildtools.exe https://aka.ms/vs/16/release/vs_buildtools.exe
-    - >
-      vs_buildtools.exe --quiet --wait --norestart --nocache
-      --installPath C:\BuildTools
-      --add Microsoft.Component.MSBuild
-      --add Microsoft.VisualStudio.Component.Windows10SDK.18362
-      --add Microsoft.VisualStudio.Component.VC.Tools.ARM64
-      --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+    RUST_HOME: $HOME/freebsd
+    CARGO_HOME: $RUST_HOME/cargo
+    RUSTUP_HOME: $RUST_HOME/rustup
+    PATH: $CARGO_HOME/bin:$PATH
   rust_cache:
     folder: $RUST_HOME
     reupload_on_changes: true
     fingerprint_script:
-      - echo %CIRRUS_OS%
-      - echo plusarm
-      - date /t
-    populate_script:
-      - curl -fSLo rustup-init.exe https://win.rustup.rs/x86_64
-      - rustup-init.exe -y --verbose --target aarch64-pc-windows-msvc
-      - del rustup-init.exe
-  update_script:
-    - rustup --verbose update
+      - echo $CIRRUS_OS
+      - date +%Y
+    populate_script: >
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs |
+      sh -s -- -y --verbose --no-modify-path
+  update_script: rustup --verbose update
   target_cache:
     folder: target
     reupload_on_changes: true
     fingerprint_script:
-      - echo %CIRRUS_OS%
+      - echo $CIRRUS_OS
       - rustc --version
   build_script:
-    - cargo build --verbose --release --target aarch64-pc-windows-msvc
-    - move target\aarch64-pc-windows-msvc\release\yj.exe yj.%CIRRUS_OS%.aarch64.exe
-    - cargo build --verbose --release --target x86_64-pc-windows-msvc
-    - move target\x86_64-pc-windows-msvc\release\yj.exe yj.%CIRRUS_OS%.x86_64.exe
+    - cargo build --verbose --release
+    - mv target/release/yj yj.freebsd.x86_64
+    - file yj.freebsd.x86_64
   binary_artifacts:
-    path: yj.%CIRRUS_OS%.*
-  before_cache_script: del target\.rustc_info.json
+    path: yj.freebsd.*
+  before_cache_script: rm -f target/.rustc_info.json
