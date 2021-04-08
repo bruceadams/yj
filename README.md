@@ -1,5 +1,5 @@
 # YJ - YAML to JSON
-![Rust](https://api.cirrus-ci.com/github/bruceadams/yj.svg)
+[![Build Status](https://api.cirrus-ci.com/github/bruceadams/yj.svg)](https://cirrus-ci.com/github/bruceadams/yj)
 
 Simple command line tool to convert a YAML input file into a JSON output file.
 
