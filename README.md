@@ -1,5 +1,5 @@
 # YJ - YAML to JSON
-![Rust](https://github.com/bruceadams/yj/workflows/Rust/badge.svg)
+![Rust](https://api.cirrus-ci.com/github/bruceadams/yj.svg)
 
 Simple command line tool to convert a YAML input file into a JSON output file.
 
@@ -9,34 +9,30 @@ Simple command line tool to convert a YAML input file into a JSON output file.
 
 ```bash
 $ yj --help
-yj 1.1.25
+yj 1.1.33
 Bruce Adams <bruce.adams@acm.org>
 Read YAML, write JSON
 
 USAGE:
-    yj.exe [FLAGS] [OPTIONS] [input]
-
-FLAGS:
-    -c, --compact    Use compact formatting for the JSON output.
-    -h, --help       Prints help information
-    -j, --json       Parse the input as JSON. For most use
-                     cases, this option makes no difference.
-                     Valid JSON is valid YAML, so JSON input
-                     will (should?) parse correctly even when
-                     being handled with the YAML parser. Use
-                     this option when you want failure (instead
-                     of weird results) when the input is invalid
-                     JSON.
-    -V, --version    Prints version information
-    -y, --yaml       Format the output as YAML instead of JSON.
-
-OPTIONS:
-    -o, --output <output>
-            Output file name for the JSON. Defaults to stdout.
-
+    yj [FLAGS] [OPTIONS] [input]
 
 ARGS:
-    <input>    Input YAML file name. Defaults to stdin.
+    <input>    Input YAML file name. Defaults to stdin
+
+FLAGS:
+    -c, --compact    Use compact formatting for the JSON output
+    -h, --help       Prints help information
+    -j, --json       Parse the input as JSON. For most use cases, this option
+                     makes no difference. Valid JSON is valid YAML, so JSON
+                     input will (should?) parse correctly even when being
+                     handled with the YAML parser. Use this option when you
+                     want failure (instead of weird results) when the input is
+                     invalid JSON
+    -V, --version    Prints version information
+    -y, --yaml       Format the output as YAML instead of JSON
+
+OPTIONS:
+    -o, --output <output>    Output file name for the JSON. Defaults to stdout
 ```
 
 ### Installing
@@ -47,7 +43,9 @@ Local build and install with `cargo`:
 $ cargo install yj
 ```
 
-Prebuilt binaries are available on [Github releases](https://github.com/bruceadams/yj/releases) for 64bit x86 for Windows, Linux and macOS.
+Prebuilt binaries are available on
+[Github releases](https://github.com/bruceadams/yj/releases)
+for some common platforms.
 
 On macOS, the prebuilt binary can be installed using [Homebrew](https://brew.sh).
 
@@ -56,7 +54,8 @@ $ brew tap bruceadams/utilities
 $ brew install yj
 ```
 
-Minimal Docker images are available on [Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
+Minimal Docker images are available on
+[Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
 
 ```bash
 $ docker pull bruceadams/yj
