@@ -1,3 +1,6 @@
+env:
+  GITHUB_TOKEN: ENCRYPTED[1c2ef2877c7f171e40a831f61367e810b57010d6b2eded04f68177e3ec096c3c85619be02f3f0c081fd1eb9b64dd15bb]
+
 macos_universal_task:
   macos_instance:
     image: big-sur-xcode
@@ -31,6 +34,7 @@ macos_universal_task:
     - file yj.macos.universal
   binary_artifacts:
     path: yj.macos.*
+  release_script: ./upload-binary.sh yj.macos.*
   before_cache_script: rm -f target/.rustc_info.json
 
 linux_x68_64_task:
@@ -57,6 +61,7 @@ linux_x68_64_task:
     - ldd yj.$CIRRUS_OS.x86_64
   binary_artifacts:
     path: yj.$CIRRUS_OS.*
+  release_script: ./upload-binary.sh yj.$CIRRUS_OS.*
   before_cache_script: rm -f target/.rustc_info.json
 
 freebsd_x86_task:
@@ -85,8 +90,9 @@ freebsd_x86_task:
       - rustc --version
   build_script:
     - cargo build --verbose --release
-    - mv target/release/yj yj.freebsd.x86_64
-    - file yj.freebsd.x86_64
+    - mv target/release/yj yj.$CIRRUS_OS.x86_64
+    - file yj.$CIRRUS_OS.x86_64
   binary_artifacts:
-    path: yj.freebsd.*
+    path: yj.$CIRRUS_OS.*
+  release_script: ./upload-binary.sh yj.$CIRRUS_OS.*
   before_cache_script: rm -f target/.rustc_info.json
