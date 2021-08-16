@@ -39,7 +39,7 @@ macos_universal_task:
 
 linux_x68_64_task:
   container:
-    image: rust:latest
+    image: rust:alpine
   registry_cache:
     folder: $CARGO_HOME/registry
     reupload_on_changes: true
@@ -51,14 +51,11 @@ linux_x68_64_task:
       - echo $CIRRUS_OS
       - rustc --version
   setup_script:
-    - echo NOPE apt-get update
-    - echo NOPE apt-get --yes install musl-tools
-    - rustup target add x86_64-unknown-linux-musl
+    - apk add --no-cache libc-dev
   build_script:
-    - cargo build --verbose --release --target x86_64-unknown-linux-musl
-    - mv target/x86_64-unknown-linux-musl/release/yj yj.$CIRRUS_OS.x86_64
-    - file yj.$CIRRUS_OS.x86_64
-    - ldd yj.$CIRRUS_OS.x86_64
+    - cargo build --verbose --release
+    - mv target/release/yj yj.$CIRRUS_OS.x86_64
+    - ldd yj.$CIRRUS_OS.x86_64 || echo yay - statically linked
   binary_artifacts:
     path: yj.$CIRRUS_OS.*
   release_script: ./upload-binary.sh yj.$CIRRUS_OS.*
