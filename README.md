@@ -9,30 +9,30 @@ Simple command line tool to convert a YAML input file into a JSON output file.
 
 ```bash
 $ yj --help
-yj 1.1.33
-Bruce Adams <bruce.adams@acm.org>
-Read YAML, write JSON
+yj 1.1.34
+
+Command line tool that converts YAML to JSON
 
 USAGE:
-    yj [FLAGS] [OPTIONS] [input]
+    yj [FLAGS] [OPTIONS] [INPUT]
 
 ARGS:
-    <input>    Input YAML file name. Defaults to stdin
+    <INPUT>    Input YAML file name. Defaults to stdin
 
 FLAGS:
     -c, --compact    Use compact formatting for the JSON output
-    -h, --help       Prints help information
+    -h, --help       Print help information
     -j, --json       Parse the input as JSON. For most use cases, this option
                      makes no difference. Valid JSON is valid YAML, so JSON
                      input will (should?) parse correctly even when being
                      handled with the YAML parser. Use this option when you
                      want failure (instead of weird results) when the input is
                      invalid JSON
-    -V, --version    Prints version information
+    -V, --version    Print version information
     -y, --yaml       Format the output as YAML instead of JSON
 
 OPTIONS:
-    -o, --output <output>    Output file name for the JSON. Defaults to stdout
+    -o, --output <OUTPUT>    Output file name for the JSON. Defaults to stdout
 ```
 
 ### Installing
@@ -47,11 +47,14 @@ Prebuilt binaries are available on
 [Github releases](https://github.com/bruceadams/yj/releases)
 for some common platforms.
 
-On macOS, the prebuilt binary can be installed using [Homebrew](https://brew.sh).
+On macOS, the prebuilt binary can be installed using
+[Homebrew](https://brew.sh). Unfortunately, Homebrew picked up a
+different utility with the name `yj` after I chose that name here.
+So, a simple `brew install yj` gets that tool, not this one 😞.
 
 ```bash
 $ brew tap bruceadams/utilities
-$ brew install yj
+$ brew install bruceadams/yj
 ```
 
 Minimal Docker images are available on

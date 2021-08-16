@@ -1,4 +1,4 @@
-use clap::{AppSettings::ColoredHelp, Clap};
+use clap::{crate_description, crate_version, AppSettings::ColoredHelp, Clap};
 use exitfailure::ExitFailure;
 use snafu::{ResultExt, Snafu};
 use std::{
@@ -51,9 +51,8 @@ enum Error {
     },
 }
 
-/// Read YAML, write JSON
 #[derive(Clap, Clone, Debug)]
-#[clap(global_setting = ColoredHelp)]
+#[clap(global_setting = ColoredHelp, about=crate_description!(), version=crate_version!())]
 struct MyArgs {
     /// Use compact formatting for the JSON output.
     #[clap(long = "compact", short = 'c')]
@@ -125,9 +124,9 @@ fn from_yaml(input: Input, mut output: Output, args: &MyArgs) -> Result<(), Erro
 
 fn dispatch(input: Input, output: Output, args: &MyArgs) -> Result<(), Error> {
     if args.json {
-        from_json(input, output, &args)
+        from_json(input, output, args)
     } else {
-        from_yaml(input, output, &args)
+        from_yaml(input, output, args)
     }
 }
 
