@@ -1,4 +1,4 @@
-use clap::{crate_description, crate_version, AppSettings::ColoredHelp, Clap};
+use clap::{crate_description, crate_version, Parser};
 use exitfailure::ExitFailure;
 use snafu::{ResultExt, Snafu};
 use std::{
@@ -51,15 +51,15 @@ enum Error {
     },
 }
 
-#[derive(Clap, Clone, Debug)]
-#[clap(global_setting = ColoredHelp, about=crate_description!(), version=crate_version!())]
+#[derive(Clone, Debug, Parser)]
+#[clap(about=crate_description!(), version=crate_version!())]
 struct MyArgs {
     /// Use compact formatting for the JSON output.
-    #[clap(long = "compact", short = 'c')]
+    #[clap(long, short)]
     compact: bool,
 
     /// Format the output as YAML instead of JSON.
-    #[clap(long = "yaml", short = 'y')]
+    #[clap(long, short)]
     yaml: bool,
 
     /// Parse the input as JSON.
@@ -68,11 +68,11 @@ struct MyArgs {
     /// correctly even when being handled with the YAML parser.
     /// Use this option when you want failure (instead of weird results)
     /// when the input is invalid JSON.
-    #[clap(long = "json", short = 'j')]
+    #[clap(long, short)]
     json: bool,
 
     /// Output file name for the JSON. Defaults to stdout.
-    #[clap(long = "output", parse(from_os_str), short = 'o')]
+    #[clap(long, parse(from_os_str), short)]
     output: Option<PathBuf>,
 
     /// Input YAML file name. Defaults to stdin.
