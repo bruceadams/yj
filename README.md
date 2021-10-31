@@ -54,7 +54,7 @@ So, a simple `brew install yj` gets that tool, not this one 😞.
 
 ```bash
 $ brew tap bruceadams/utilities
-$ brew install bruceadams/yj
+$ brew install bruceadams/utilities/yj
 ```
 
 Minimal Docker images are available on
