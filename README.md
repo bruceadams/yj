@@ -57,6 +57,13 @@ $ brew tap bruceadams/utilities
 $ brew install bruceadams/utilities/yj
 ```
 
+Alternatively on macOS, you may also install `yj` using [MacPorts](https://www.macports.org):
+
+```bash
+$ sudo port selfupdate
+$ sudo port install yj
+```
+
 Minimal Docker images are available on
 [Docker Hub](https://cloud.docker.com/repository/docker/bruceadams/yj):
 
