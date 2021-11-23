@@ -71,6 +71,12 @@ Minimal Docker images are available on
 $ docker pull bruceadams/yj
 ```
 
+On FreeBSD, you may install `yj` using [pkg(8)](https://wiki.freebsd.org/pkg):
+
+```bash
+$ sudo pkg install yj-bruceadams
+```
+
 ### Example runs
 
 ```bash
