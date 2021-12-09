@@ -61,9 +61,33 @@ linux_x68_64_task:
   release_script: ./upload-binary.sh yj.$CIRRUS_OS.*
   before_cache_script: rm -f target/.rustc_info.json
 
+linux_arm_task:
+  arm_container:
+    image: rust:alpine
+  registry_cache:
+    folder: $CARGO_HOME/registry
+    reupload_on_changes: true
+    fingerprint_script: date +%Y
+  target_cache:
+    folder: target
+    reupload_on_changes: true
+    fingerprint_script:
+      - echo $CIRRUS_OS
+      - rustc --version
+  setup_script:
+    - apk add --no-cache libc-dev
+  build_script:
+    - cargo build --verbose --release
+    - mv target/release/yj yj.$CIRRUS_OS.aarch64
+    - ldd yj.$CIRRUS_OS.aarch64 || echo yay - statically linked
+  binary_artifacts:
+    path: yj.$CIRRUS_OS.*
+  release_script: ./upload-binary.sh yj.$CIRRUS_OS.*
+  before_cache_script: rm -f target/.rustc_info.json
+
 freebsd_x86_task:
   freebsd_instance:
-    image_family: freebsd-12-2
+    image_family: freebsd-13-0
   env:
     RUST_HOME: $HOME/freebsd
     CARGO_HOME: $RUST_HOME/cargo
