@@ -51,7 +51,7 @@ linux_x68_64_task:
       - echo $CIRRUS_OS
       - rustc --version
   setup_script:
-    - apk add --no-cache libc-dev
+    - apk add --no-cache curl libc-dev
   build_script:
     - cargo build --verbose --release
     - mv target/release/yj yj.$CIRRUS_OS.x86_64
@@ -75,7 +75,7 @@ linux_arm_task:
       - echo $CIRRUS_OS
       - rustc --version
   setup_script:
-    - apk add --no-cache libc-dev
+    - apk add --no-cache curl libc-dev
   build_script:
     - cargo build --verbose --release
     - mv target/release/yj yj.$CIRRUS_OS.aarch64
