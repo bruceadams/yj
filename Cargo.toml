@@ -19,4 +19,4 @@ snafu = "0.6.10"
 
 [dependencies.clap]
 features = ["derive", "cargo", "wrap_help"]
-version = "3.0.0-rc.4"
+version = "3.0.0-rc.8"
