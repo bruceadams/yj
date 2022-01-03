@@ -1,6 +1,6 @@
 [package]
 name = "yj"
-version = "1.1.35"
+version = "1.2.0"
 authors = ["Bruce Adams <bruce.adams@acm.org>"]
 categories = ["command-line-utilities"]
 description = "Command line tool that converts YAML to JSON"
@@ -18,8 +18,8 @@ snafu = "0.6.10"
 
 [dependencies.serde_json]
 features = ["arbitrary_precision", "preserve_order"]
-version = "1.0.73"
+version = "1.0.74"
 
 [dependencies.clap]
 features = ["derive", "cargo", "wrap_help"]
-version = "3.0.0-rc.8"
+version = "3.0.0"
