@@ -72,11 +72,10 @@ struct MyArgs {
     json: bool,
 
     /// Output file name for the JSON. Defaults to stdout.
-    #[clap(long, parse(from_os_str), short)]
+    #[clap(long, short)]
     output: Option<PathBuf>,
 
     /// Input YAML file name. Defaults to stdin.
-    #[clap(parse(from_os_str))]
     input: Option<PathBuf>,
 }
 
