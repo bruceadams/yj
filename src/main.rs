@@ -81,19 +81,20 @@ struct MyArgs {
 
 fn from_json(input: Input, mut output: Output, args: &MyArgs) -> Result<(), Error> {
     let data: serde_json::Value =
-        serde_json::from_reader(input.handle).context(ReadJSON { name: input.name })?;
+        serde_json::from_reader(input.handle).context(ReadJSONSnafu { name: input.name })?;
 
     // Failure to format JSON output should never happen.
     if args.yaml {
         serde_yaml::to_writer(output.handle.as_mut(), &data)
-            .context(WriteYAML { name: output.name })?;
+            .context(WriteYAMLSnafu { name: output.name })?;
         // We'd like to write out a final newline. Ignore any failure to do so.
         let _result = output.handle.write(b"\n");
     } else if args.compact {
-        serde_json::to_writer(output.handle, &data).context(WriteJSON { name: output.name })?;
+        serde_json::to_writer(output.handle, &data)
+            .context(WriteJSONSnafu { name: output.name })?;
     } else {
         serde_json::to_writer_pretty(output.handle.as_mut(), &data)
-            .context(WriteJSON { name: output.name })?;
+            .context(WriteJSONSnafu { name: output.name })?;
         // We'd like to write out a final newline. Ignore any failure to do so.
         let _result = output.handle.write(b"\n");
     };
@@ -102,19 +103,20 @@ fn from_json(input: Input, mut output: Output, args: &MyArgs) -> Result<(), Erro
 
 fn from_yaml(input: Input, mut output: Output, args: &MyArgs) -> Result<(), Error> {
     let data: serde_yaml::Value =
-        serde_yaml::from_reader(input.handle).context(ReadYAML { name: input.name })?;
+        serde_yaml::from_reader(input.handle).context(ReadYAMLSnafu { name: input.name })?;
 
     // Failure to format JSON output should never happen.
     if args.yaml {
         serde_yaml::to_writer(output.handle.as_mut(), &data)
-            .context(WriteYAML { name: output.name })?;
+            .context(WriteYAMLSnafu { name: output.name })?;
         // We'd like to write out a final newline. Ignore any failure to do so.
         let _result = output.handle.write(b"\n");
     } else if args.compact {
-        serde_json::to_writer(output.handle, &data).context(WriteJSON { name: output.name })?;
+        serde_json::to_writer(output.handle, &data)
+            .context(WriteJSONSnafu { name: output.name })?;
     } else {
         serde_json::to_writer_pretty(output.handle.as_mut(), &data)
-            .context(WriteJSON { name: output.name })?;
+            .context(WriteJSONSnafu { name: output.name })?;
         // We'd like to write out a final newline. Ignore any failure to do so.
         let _result = output.handle.write(b"\n");
     };
@@ -134,7 +136,7 @@ fn main() -> Result<(), ExitFailure> {
 
     let input: Input = match &args.input {
         Some(filename) => Input {
-            handle: Box::new(File::open(&filename).context(OpenInput { filename })?),
+            handle: Box::new(File::open(&filename).context(OpenInputSnafu { filename })?),
             name: filename.display().to_string(),
         },
         None => Input {
@@ -145,7 +147,7 @@ fn main() -> Result<(), ExitFailure> {
 
     let output: Output = match &args.output {
         Some(filename) => Output {
-            handle: Box::new(File::create(&filename).context(OpenOutput { filename })?),
+            handle: Box::new(File::create(&filename).context(OpenOutputSnafu { filename })?),
             name: filename.display().to_string(),
         },
         None => Output {
