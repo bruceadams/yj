@@ -13,7 +13,7 @@ repository = "https://github.com/bruceadams/yj"
 
 [dependencies]
 exitfailure = "0.5.1"
-serde_yaml = "0.8.24"
+serde_yaml = "0.8.26"
 snafu = "0.7.1"
 
 [dependencies.serde_json]
@@ -22,4 +22,4 @@ version = "1.0.82"
 
 [dependencies.clap]
 features = ["derive", "cargo", "wrap_help"]
-version = "3.2.8"
+version = "3.2.15"
