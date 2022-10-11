@@ -14,7 +14,7 @@ repository = "https://github.com/bruceadams/yj"
 [dependencies]
 exitfailure = "0.5.1"
 serde_yaml = "0.9.13"
-snafu = "0.7.1"
+snafu = "0.7.2"
 
 [dependencies.serde_json]
 features = ["arbitrary_precision", "preserve_order"]
