@@ -136,7 +136,7 @@ fn main() -> Result<(), ExitFailure> {
 
     let input: Input = match &args.input {
         Some(filename) => Input {
-            handle: Box::new(File::open(&filename).context(OpenInputSnafu { filename })?),
+            handle: Box::new(File::open(filename).context(OpenInputSnafu { filename })?),
             name: filename.display().to_string(),
         },
         None => Input {
@@ -147,7 +147,7 @@ fn main() -> Result<(), ExitFailure> {
 
     let output: Output = match &args.output {
         Some(filename) => Output {
-            handle: Box::new(File::create(&filename).context(OpenOutputSnafu { filename })?),
+            handle: Box::new(File::create(filename).context(OpenOutputSnafu { filename })?),
             name: filename.display().to_string(),
         },
         None => Output {

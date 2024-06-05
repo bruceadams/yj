@@ -1,6 +1,6 @@
 [package]
 name = "yj"
-version = "1.2.3"
+version = "1.2.4"
 authors = ["Bruce Adams <bruce.adams@acm.org>"]
 categories = ["command-line-utilities"]
 description = "Command line tool that converts YAML to JSON"
@@ -22,4 +22,4 @@ version = "1.0"
 
 [dependencies.clap]
 features = ["cargo", "derive", "wrap_help"]
-version = "4.0"
+version = "4.5"
